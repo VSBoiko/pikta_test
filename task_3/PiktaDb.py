@@ -1,7 +1,7 @@
 import sqlite3
 
 
-class Pikta_db:
+class PiktaDb:
     def __init__(self, db_path: str):
         self.db_path = db_path
         self.db = None
