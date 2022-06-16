@@ -13,6 +13,14 @@ class PiktaNalog:
         pass
 
     def get_info(self, ifns: str, oktmmf: str) -> dict:
+        """
+        Получить реквизиты на сайте налоговой службы
+
+        :param ifns: код ИФНС
+        :param oktmmf: код муниципального образование
+
+        :return: словарь с результатами запроса
+        """
         params = {
             "c": "next",
             "step": "1",
@@ -35,7 +43,7 @@ class PiktaNalog:
         )
 
     def _send_request(self, method: str, url: str, headers: dict, params: dict,
-                      data: dict):
+                      data: dict) -> dict:
         try:
             response = requests.request(
                 method=method,
@@ -49,7 +57,7 @@ class PiktaNalog:
             print(e)
             raise
 
-    def __validate(self, response, params):
+    def __validate(self, response) -> dict:
         data = response.json()
         if not response.status_code == 200:
             data = {
@@ -58,6 +66,3 @@ class PiktaNalog:
             }
 
         return data
-
-
-
