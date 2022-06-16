@@ -18,8 +18,6 @@ class PiktaDb:
             self.__add_data()
         self.__connection_close()
 
-    # Метод, который возвращает результаты запроса: список клиентов с общей суммой их покупки
-
     def get_clients_amount(self) -> list:
         """
         Возвращает список клиентов с общей суммой их покупки
@@ -54,6 +52,76 @@ class PiktaDb:
             result.append({
                 "client_name": row["client_name"],
                 "amount": round(row["amount"], 2)
+            })
+        self.__connection_close()
+
+        return result
+
+    def get_who_bought_phone(self) -> list:
+        """
+        Возвращает список клиентов, которые купили телефон
+
+        :return: список клиентов, которые купили телефон
+        Например:
+        [
+            {
+                "client_name": "Иван",
+            },
+            {
+                "client_name": "Петр",
+            },
+        ]
+        """
+        self.__connection_open()
+        cur = self.db.cursor()
+        select_sql = """SELECT
+            cl.client_name AS client_name
+        FROM clients cl
+            JOIN orders ord ON cl.client_id = ord.client_id
+            JOIN products pr ON ord.product_id = pr.product_id
+        WHERE pr.product_name = 'Телефон'
+        """
+        cur.execute(select_sql)
+        results_sql = cur.fetchall()
+        result = []
+        for row in results_sql:
+            result.append({
+                "client_name": row["client_name"],
+            })
+        self.__connection_close()
+
+        return result
+
+    def get_who_bought_phone(self) -> list:
+        """
+        Возвращает список клиентов, которые купили телефон
+
+        :return: список клиентов, которые купили телефон
+        Например:
+        [
+            {
+                "client_name": "Иван",
+            },
+            {
+                "client_name": "Петр",
+            },
+        ]
+        """
+        self.__connection_open()
+        cur = self.db.cursor()
+        select_sql = """SELECT
+            cl.client_name AS client_name
+        FROM clients cl
+            JOIN orders ord ON cl.client_id = ord.client_id
+            JOIN products pr ON ord.product_id = pr.product_id
+        WHERE pr.product_name = 'Телефон'
+        """
+        cur.execute(select_sql)
+        results_sql = cur.fetchall()
+        result = []
+        for row in results_sql:
+            result.append({
+                "client_name": row["client_name"],
             })
         self.__connection_close()
 
