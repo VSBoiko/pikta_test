@@ -7,6 +7,11 @@ class Pikta_db:
         self.db = None
 
     def init_db(self, add_data: bool = False):
+        """
+        Метод создает базу данныx и добавляет в нее таблицы
+
+        :param add_data: заполнить или нет таблицы данными
+        """
         self.__connection_open()
         self.__add_tables()
         if add_data:
@@ -126,6 +131,3 @@ class Pikta_db:
 
     def __set_db(self, db):
         self.db = db
-
-
-
