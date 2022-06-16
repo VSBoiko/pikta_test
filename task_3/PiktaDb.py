@@ -92,36 +92,39 @@ class PiktaDb:
 
         return result
 
-    def get_who_bought_phone(self) -> list:
+    def get_products_order_quantity(self) -> list:
         """
-        Возвращает список клиентов, которые купили телефон
+        Возвращает список товаров с количеством их заказа
 
-        :return: список клиентов, которые купили телефон
+        :return: список товаров с количеством их заказа
         Например:
         [
             {
-                "client_name": "Иван",
+                "product_name": "Ручка",
+                "orders_count": 10,
             },
             {
-                "client_name": "Петр",
+                "client_name": "Книжка",
+                "orders_count": 7,
             },
         ]
         """
         self.__connection_open()
         cur = self.db.cursor()
         select_sql = """SELECT
-            cl.client_name AS client_name
-        FROM clients cl
-            JOIN orders ord ON cl.client_id = ord.client_id
+            pr.product_name AS product_name,
+            COUNT(ord.product_id) AS orders_count
+        FROM orders ord
             JOIN products pr ON ord.product_id = pr.product_id
-        WHERE pr.product_name = 'Телефон'
+        GROUP BY product_name
         """
         cur.execute(select_sql)
         results_sql = cur.fetchall()
         result = []
         for row in results_sql:
             result.append({
-                "client_name": row["client_name"],
+                "product_name": row["product_name"],
+                "orders_count": row["orders_count"]
             })
         self.__connection_close()
 

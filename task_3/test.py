@@ -21,3 +21,10 @@ print("\n\tCписок клиентов, которые купили телеф�
 who_bought_phone = p.get_who_bought_phone()
 for client in who_bought_phone:
     print(f"{client['client_name']}")
+
+
+# Метод, который возвращает результаты запроса: список товаров с количеством их заказа
+print("\n\tCписок товаров с количеством их заказа:")
+products = p.get_products_order_quantity()
+for product in products:
+    print(f"{product['product_name']} - {product['orders_count']}")
