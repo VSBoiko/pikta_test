@@ -11,6 +11,12 @@ class PiktaExcel:
         self.path_is_changed = False
 
     def add_worksheet(self, sheet_name: str, data: list):
+        """
+        Добавить лист в таблицу
+
+        :param sheet_name: имя листа
+        :param data: таблица с данными для заполнения листа
+        """
         excel_file = openpyxl.load_workbook(self.excel_file_path)
         excel_sheet = excel_file.create_sheet(title=sheet_name, index=0)
         for row in data:
@@ -18,6 +24,11 @@ class PiktaExcel:
         excel_file.save(self.excel_file_path)
 
     def create_excel(self):
+        """
+        Создать таблицу
+
+        Если такая таблица уже есть, то будет создана новая с тем же именем + текущая дата и время
+        """
         path = self.excel_file_path
         if self.__check_path_is_exist(path):
             path = self.__create_new_path(path)

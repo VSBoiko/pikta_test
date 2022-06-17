@@ -7,6 +7,26 @@ class PiktaJson:
         self.json_file_path = json_file_path
 
     def get_format_table(self) -> list:
+        """
+        Получить данные таблицы списком строк
+
+        :return: списком строк таблицы
+        [
+            [
+                'Сумма во ВВ',
+                'Внутренняя валюта',
+                'Код налога',
+                'Счет Главной книги'
+            ],
+            [
+                ' 3 500,00',
+                'RUB',
+                'CH',
+                '32-020010'
+            ]
+        ]
+        """
+
         table = self.__get_table_from_json()
         format_table = []
         prev_x = False
