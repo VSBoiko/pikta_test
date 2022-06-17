@@ -52,7 +52,7 @@ class PiktaNalog:
                 params=params,
                 json=data
             )
-            return self.__validate(response=response, params=params)
+            return self.__validate(response=response)
         except Exception as e:
             print(e)
             raise
